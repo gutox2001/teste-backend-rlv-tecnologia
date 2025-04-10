@@ -15,8 +15,8 @@ describe('AppController', () => {
   });
 
   describe('root', () => {
-    it('should return "Hello World!"', () => {
-      expect(appController.getHello()).toBe('Hello World!');
+    it('should return "Seja bem vindo a API teste da RLV Tecnologia!"', () => {
+      expect(appController.getHello()).toBe('Seja bem vindo a API teste da RLV Tecnologia!');
     });
   });
 });
