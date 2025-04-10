@@ -1,6 +1,7 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 
+import { EnvModule } from './common/env/env.module';
 import { DatabaseModule } from './modules/database/database.module';
 import { StatesModule } from './modules/states/states.module';
 import { CitiesModule } from './modules/cities/cities.module';
@@ -19,6 +20,7 @@ import { envSchema } from './common/env/env';
     DatabaseModule,
     CitiesModule,
     StatesModule,
+    EnvModule
   ],
   controllers: [AppController],
   providers: [AppService],
