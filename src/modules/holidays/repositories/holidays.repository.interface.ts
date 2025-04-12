@@ -24,6 +24,34 @@ export interface IHolidaysRepository {
     findById(id: number): Promise<Holiday | null>;
 
     /**
+     * Find a holiday by date
+     * @param {string} date - The date of the holiday to be found
+     * @returns {Promise<Holiday | null>} - The found holiday
+     */
+    findByDate(date: string): Promise<Holiday | null>;
+
+    /**
+     * Find a holiday by state id
+     * @param {string} ibgeCode - The ibge code of the state to be found
+     * @returns {Promise<Holiday[]>} - The list of holidays for the state
+     */
+    findByStateIbgeCode(ibgeCode: string): Promise<Holiday[]>;
+
+    /**
+     * 
+     * @param {string} ibgeCode - The ibge code of the city to be found
+     * @returns {Promise<Holiday[]>} - The list of holidays for the city
+     */
+    findByCityIbgeCode(ibgeCode: string): Promise<Holiday[]>;
+
+    /**
+     * Find holidays by type
+     * @param {string} type - The type of the holiday to be found
+     * @returns {Promise<Holiday[]>} - The list of holidays for the type
+     */
+    findByType(type: string): Promise<Holiday[]>;
+
+    /**
      * Update a holiday by id
      * @param {number} id - The id of the holiday to be updated
      * @param {ICreateHoliday} updateHoliday - The holiday to be updated

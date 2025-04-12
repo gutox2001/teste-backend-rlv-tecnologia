@@ -10,9 +10,6 @@ export class Holiday {
     @Column({ length: 100, nullable: false })
     name: string;
 
-    @Column({ nullable: false })
-    ibgeCode: string;
-
     @Column({ nullable: false, enum: ['NACIONAL', 'ESTADUAL', 'MUNICIPAL'] })
     type: string;
 

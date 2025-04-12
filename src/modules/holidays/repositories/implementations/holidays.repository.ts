@@ -12,7 +12,59 @@ export class HolidaysRepository implements IHolidaysRepository {
 	constructor(
 		@Inject(HOLIDAY_REPOSITORY)
 		private holidayRepository: Repository<Holiday>,
-	) {}
+	) { }
+
+	async findByDate(date: string): Promise<Holiday | null> {
+		const holiday = await this.holidayRepository.findOne({
+			select: {
+				id: true,
+				name: true,
+				date: true,
+				state: true,
+				city: true,
+				type: true,
+			},
+			where: {
+				date: date,
+			},
+		});
+
+		return holiday;
+	}
+
+	async findByStateIbgeCode(ibgeCode: string): Promise<Holiday[]> {
+		return this.holidayRepository
+			.createQueryBuilder('holiday')
+			.leftJoinAndSelect('holiday.state', 'state')
+			.where('state.ibgeCode = :ibgeCode', { ibgeCode })
+			.getMany();
+	}
+
+	async findByCityIbgeCode(ibgeCode: string): Promise<Holiday[]> {
+		return this.holidayRepository
+			.createQueryBuilder('holiday')
+			.leftJoinAndSelect('holiday.city', 'city')
+			.where('city.ibgeCode = :ibgeCode', { ibgeCode })
+			.getMany();
+	}
+
+	findByType(type: string): Promise<Holiday[]> {
+		const holidays = this.holidayRepository.find({
+			select: {
+				id: true,
+				name: true,
+				date: true,
+				state: true,
+				city: true,
+				type: true,
+			},
+			where: {
+				type: type,
+			},
+		});
+
+		return holidays;
+	}
 
 	async findAll(): Promise<Holiday[]> {
 		return this.holidayRepository.find();
@@ -23,7 +75,10 @@ export class HolidaysRepository implements IHolidaysRepository {
 			select: {
 				id: true,
 				name: true,
-				ibgeCode: true,
+				date: true,
+				state: true,
+				city: true,
+				type: true,
 			},
 			where: {
 				id: id,
@@ -33,27 +88,15 @@ export class HolidaysRepository implements IHolidaysRepository {
 		return holiday;
 	}
 
-	findByIbgeCode(ibge_code: string): Promise<Holiday | null> {
-		const Holiday = this.holidayRepository.findOne({
-			select: {
-				id: true,
-				name: true,
-				ibgeCode: true,
-			},
-			where: {
-				ibgeCode: ibge_code,
-			},
-		});
-
-		return Holiday;
-	}
-
 	findByName(name: string): Promise<Holiday | null> {
 		const Holiday = this.holidayRepository.findOne({
 			select: {
 				id: true,
 				name: true,
-				ibgeCode: true,
+				date: true,
+				state: true,
+				city: true,
+				type: true,
 			},
 			where: {
 				name: name,
@@ -71,6 +114,7 @@ export class HolidaysRepository implements IHolidaysRepository {
 
 	async update(id: number, updateHoliday: ICreateHoliday): Promise<Holiday> {
 		await this.holidayRepository.update(id, updateHoliday);
+		
 		const updatedHoliday = await this.holidayRepository.findOneBy({ id });
 
 		if (!updatedHoliday) {
