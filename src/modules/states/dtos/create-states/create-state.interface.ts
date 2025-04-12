@@ -1,4 +1,4 @@
 export interface ICreateState {
-	prefix: number;
+	ibgeCode: string;
 	uf: string;
 }

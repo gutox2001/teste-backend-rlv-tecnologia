@@ -71,9 +71,9 @@ export class StatesController {
         return states;
     }
 
-    @Get('prefix/:prefix')
-    async getStateByPrefix(@Param('prefix') prefix: number): Promise<State | null> {
-        const state = await this.getStateService.executeByPrefix(prefix);
+    @Get('ibge-code/:ibge_code')
+    async getStateByIbgeCode(@Param('ibge_code') ibge_code: string): Promise<State | null> {
+        const state = await this.getStateService.executeByIbgeCode(ibge_code);
 
         return state;
     }

@@ -1,8 +1,8 @@
 import { Injectable } from '@nestjs/common';
 
-import { ICreateState } from '../../dtos/create-states/create-state.interface';
 import { State } from '../../entities/state.entity';
 import { StatesRepository } from '../../repositories/implementations/states';
+import { CreateStateDto } from '../../dtos/create-states/create-state.dto';
 
 @Injectable()
 export class PostStatesService {
@@ -10,11 +10,14 @@ export class PostStatesService {
         private readonly statesRepository: StatesRepository
     ) { }
 
-    async execute(states: ICreateState[]): Promise<State[]> {
+    async execute(states: CreateStateDto[]): Promise<State[]> {
         let createdStates: State[] = [];
 
         for (const state of states) {
-            createdStates.push(await this.statesRepository.create(state));
+            createdStates.push(await this.statesRepository.create({
+                ibgeCode: state.ibge_code,
+                uf: state.uf,
+            }));
         }
 
         return createdStates;

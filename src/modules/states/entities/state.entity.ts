@@ -1,4 +1,5 @@
-import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
+import { Holiday } from 'src/modules/holidays/entities/holiday.entity';
+import { Entity, Column, PrimaryGeneratedColumn, OneToMany } from 'typeorm';
 
 @Entity('State')
 export class State {
@@ -44,8 +45,11 @@ export class State {
 		nullable: false,
 		unique: true,
 		enum: [
-			12, 27, 16, 13, 29, 23, 53, 32, 52, 21, 51, 50, 31, 15, 25, 41, 26, 22, 33, 24, 43, 11, 14, 42, 35, 28, 17,
+			'12', '27', '16', '13', '29', '23', '53', '32', '52', '21', '51', '50', '31', '15', '25', '41', '26', '22', '33', '24', '43', '11', '14', '42', '35', '28', '17',
 		],
 	})
-	prefix: number;
+	ibgeCode: string;
+
+	@OneToMany(() => Holiday, (holiday) => holiday.state)
+	holidays: Holiday[];
 }

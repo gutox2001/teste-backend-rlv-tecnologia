@@ -18,8 +18,8 @@ export class GetStateService {
         return state;
     }
 
-    async executeByPrefix(prefix: number): Promise<State | null> {
-        const state = await this.statesRepository.findByPrefix(Number(prefix));
+    async executeByIbgeCode(ibge_code: string): Promise<State | null> {
+        const state = await this.statesRepository.findByIbgeCode(ibge_code);
 
         if (!state) {
             throw new Error('State not found');

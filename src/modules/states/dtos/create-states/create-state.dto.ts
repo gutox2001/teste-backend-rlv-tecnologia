@@ -1,9 +1,9 @@
-import { IsInt, IsNotEmpty, IsString } from 'class-validator';
+import { IsNotEmpty, IsString } from 'class-validator';
 
 export class CreateStateDto {
-	@IsInt()
+	@IsString()
 	@IsNotEmpty()
-	prefix: number;
+	ibge_code: string;
 	
 	@IsString()
 	@IsNotEmpty()

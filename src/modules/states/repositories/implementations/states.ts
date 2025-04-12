@@ -2,7 +2,7 @@ import { Inject, Injectable } from '@nestjs/common';
 import { DeleteResult, Repository } from 'typeorm';
 
 import { STATE_REPOSITORY } from 'src/modules/database/constants';
-import { IStatesRepository } from '../cities.repository.interface';
+import { IStatesRepository } from '../states.repository.interface';
 
 import { ICreateState } from '../../dtos/create-states/create-state.interface';
 import { State } from '../../entities/state.entity';
@@ -22,7 +22,7 @@ export class StatesRepository implements IStatesRepository {
 		const state = this.stateRepository.findOne({
 			select: {
 				id: true,
-				prefix: true,
+				ibgeCode: true,
 				uf: true,
 			},
 			where: {
@@ -33,15 +33,15 @@ export class StatesRepository implements IStatesRepository {
 		return state;
 	}
 
-	findByPrefix(prefix: number): Promise<State | null> {
+	findByIbgeCode(ibge_code: string): Promise<State | null> {
 		const city = this.stateRepository.findOne({
 			select: {
 				id: true,
-				prefix: true,
+				ibgeCode: true,
 				uf: true,
 			},
 			where: {
-				prefix: prefix,
+				ibgeCode: ibge_code,
 			},
 		});
 
@@ -52,7 +52,7 @@ export class StatesRepository implements IStatesRepository {
 		const state = this.stateRepository.findOne({
 			select: {
 				id: true,
-				prefix: true,
+				ibgeCode: true,
 				uf: true,
 			},
 			where: {
