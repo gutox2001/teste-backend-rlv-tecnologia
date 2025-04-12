@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 
 @Injectable()
 export class AppService {
-  getHello(): string {
-    return 'Seja bem vindo a API teste da RLV Tecnologia!';
-  }
+	getHello(): string {
+		return 'Seja bem vindo a API teste da RLV Tecnologia!';
+	}
 }
