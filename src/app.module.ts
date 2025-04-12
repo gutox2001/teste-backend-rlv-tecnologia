@@ -12,17 +12,17 @@ import { AppService } from './app.service';
 import { envSchema } from './common/env/env';
 
 @Module({
-  imports: [
-    ConfigModule.forRoot({
-      validate: (env) => envSchema.parse(env),
-      isGlobal: true,
-    }),
-    DatabaseModule,
-    CitiesModule,
-    StatesModule,
-    EnvModule
-  ],
-  controllers: [AppController],
-  providers: [AppService],
+	imports: [
+		ConfigModule.forRoot({
+			validate: env => envSchema.parse(env),
+			isGlobal: true,
+		}),
+		DatabaseModule,
+		CitiesModule,
+		StatesModule,
+		EnvModule,
+	],
+	controllers: [AppController],
+	providers: [AppService],
 })
-export class AppModule { }
+export class AppModule {}

@@ -3,20 +3,20 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 
 describe('AppController', () => {
-  let appController: AppController;
+	let appController: AppController;
 
-  beforeEach(async () => {
-    const app: TestingModule = await Test.createTestingModule({
-      controllers: [AppController],
-      providers: [AppService],
-    }).compile();
+	beforeEach(async () => {
+		const app: TestingModule = await Test.createTestingModule({
+			controllers: [AppController],
+			providers: [AppService],
+		}).compile();
 
-    appController = app.get<AppController>(AppController);
-  });
+		appController = app.get<AppController>(AppController);
+	});
 
-  describe('root', () => {
-    it('should return "Seja bem vindo a API teste da RLV Tecnologia!"', () => {
-      expect(appController.getHello()).toBe('Seja bem vindo a API teste da RLV Tecnologia!');
-    });
-  });
+	describe('root', () => {
+		it('should return "Seja bem vindo a API teste da RLV Tecnologia!"', () => {
+			expect(appController.getHello()).toBe('Seja bem vindo a API teste da RLV Tecnologia!');
+		});
+	});
 });
