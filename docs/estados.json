@@ -1,0 +1,110 @@
+[
+    {
+      "prefix": 12,
+      "uf": "AC"
+    },
+    {
+      "prefix": 27,
+      "uf": "AL"
+    },
+    {
+      "prefix": 16,
+      "uf": "AP"
+    },
+    {
+      "prefix": 13,
+      "uf": "AM"
+    },
+    {
+      "prefix": 29,
+      "uf": "BA"
+    },
+    {
+      "prefix": 23,
+      "uf": "CE"
+    },
+    {
+      "prefix": 53,
+      "uf": "DF"
+    },
+    {
+      "prefix": 32,
+      "uf": "ES"
+    },
+    {
+      "prefix": 52,
+      "uf": "GO"
+    },
+    {
+      "prefix": 21,
+      "uf": "MA"
+    },
+    {
+      "prefix": 51,
+      "uf": "MT"
+    },
+    {
+      "prefix": 50,
+      "uf": "MS"
+    },
+    {
+      "prefix": 31,
+      "uf": "MG"
+    },
+    {
+      "prefix": 15,
+      "uf": "PA"
+    },
+    {
+      "prefix": 25,
+      "uf": "PB"
+    },
+    {
+      "prefix": 41,
+      "uf": "PR"
+    },
+    {
+      "prefix": 26,
+      "uf": "PE"
+    },
+    {
+      "prefix": 22,
+      "uf": "PI"
+    },
+    {
+      "prefix": 33,
+      "uf": "RJ"
+    },
+    {
+      "prefix": 24,
+      "uf": "RN"
+    },
+    {
+      "prefix": 43,
+      "uf": "RS"
+    },
+    {
+      "prefix": 11,
+      "uf": "RO"
+    },
+    {
+      "prefix": 14,
+      "uf": "RR"
+    },
+    {
+      "prefix": 42,
+      "uf": "SC"
+    },
+    {
+      "prefix": 35,
+      "uf": "SP"
+    },
+    {
+      "prefix": 28,
+      "uf": "SE"
+    },
+    {
+      "prefix": 17,
+      "uf": "TO"
+    }
+  ]
