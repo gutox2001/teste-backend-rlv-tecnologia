@@ -1,16 +1,16 @@
 import { Body, Controller, Delete, Get, Param, Post } from '@nestjs/common';
 import { ApiBody, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 
-import { City } from '../entities/city.entity';
+import { City } from './entities/city.entity';
 
-import { CreateCityDto } from '../dtos/create-cities/create-city.dto';
+import { CreateCityDto } from './dtos/create-cities/create-city.dto';
 
-import { DeleteCitiesService } from '../services/delete-cities/delete-cities.service';
-import { DeleteCityService } from '../services/delete-cities/delete-city.service';
-import { GetCitiesService } from '../services/get-cities/get-cities.service';
-import { GetCityService } from '../services/get-city/get-city.service';
-import { PostCitiesService } from '../services/post-cities/post-cities.service';
-import { PostCityService } from '../services/post-city/post-city.service';
+import { DeleteCitiesService } from './services/delete-cities/delete-cities.service';
+import { DeleteCityService } from './services/delete-cities/delete-city.service';
+import { GetCitiesService } from './services/get-cities/get-cities.service';
+import { GetCityService } from './services/get-city/get-city.service';
+import { PostCitiesService } from './services/post-cities/post-cities.service';
+import { PostCityService } from './services/post-city/post-city.service';
 
 @ApiTags('Cities')
 @Controller('cities')

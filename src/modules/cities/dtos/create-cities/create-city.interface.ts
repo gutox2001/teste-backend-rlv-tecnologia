@@ -1,4 +1,4 @@
 export interface ICreateCity {
-	ibge_code: string;
+	ibgeCode: string;
 	name: string;
 }

@@ -1,6 +1,6 @@
-import { Module } from '@nestjs/common';
+import { forwardRef, Module } from '@nestjs/common';
 
-import { CitiesController } from './controller/cities.controller';
+import { CitiesController } from './cities.controller';
 
 import { PostCitiesService } from './services/post-cities/post-cities.service';
 
@@ -12,10 +12,14 @@ import { DeleteCityService } from './services/delete-cities/delete-city.service'
 import { GetCitiesService } from './services/get-cities/get-cities.service';
 import { GetCityService } from './services/get-city/get-city.service';
 import { PostCityService } from './services/post-city/post-city.service';
+import { HolidaysModule } from '../holidays/holidays.module';
+import { City } from './entities/city.entity';
 
 @Module({
 	imports: [
-		DatabaseModule
+		DatabaseModule,
+		forwardRef(() => HolidaysModule),
+
 	],
 	providers: [
 		...cityProviders,
@@ -30,6 +34,8 @@ import { PostCityService } from './services/post-city/post-city.service';
 	controllers: [
 		CitiesController
 	],
-	exports: [],
+	exports: [
+		CitiesRepository
+	],
 })
 export class CitiesModule { }

@@ -21,7 +21,7 @@ export class CitiesRepository implements ICitiesRepository {
 			select: {
 				id: true,
 				name: true,
-				ibge_code: true,
+				ibgeCode: true,
 			},
 			where: {
 				id: id,
@@ -36,10 +36,10 @@ export class CitiesRepository implements ICitiesRepository {
 			select: {
 				id: true,
 				name: true,
-				ibge_code: true,
+				ibgeCode: true,
 			},
 			where: {
-				ibge_code: ibge_code,
+				ibgeCode: ibge_code,
 			},
 		});
 
@@ -51,7 +51,7 @@ export class CitiesRepository implements ICitiesRepository {
 			select: {
 				id: true,
 				name: true,
-				ibge_code: true,
+				ibgeCode: true,
 			},
 			where: {
 				name: name,

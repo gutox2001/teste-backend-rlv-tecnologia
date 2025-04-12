@@ -1,4 +1,5 @@
-import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
+import { Holiday } from 'src/modules/holidays/entities/holiday.entity';
+import { Entity, Column, PrimaryGeneratedColumn, OneToMany } from 'typeorm';
 
 @Entity('City')
 export class City {
@@ -9,5 +10,8 @@ export class City {
 	name: string;
 
 	@Column({ length: 7, nullable: false, unique: true })
-	ibge_code: string;
+	ibgeCode: string;
+
+	@OneToMany(() => Holiday, (holiday) => holiday.city)
+	holidays: Holiday[];
 }
