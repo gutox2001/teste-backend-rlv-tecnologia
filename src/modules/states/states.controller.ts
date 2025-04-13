@@ -8,9 +8,10 @@ import { PostStateService } from './services/post-state/post-state.service';
 import { PostStatesService } from './services/post-states/post-states.service';
 import { CreateStateDto } from './dtos/create-states/create-state.dto';
 import { State } from './entities/state.entity';
-import { ApiBody, ApiOperation, ApiResponse } from '@nestjs/swagger';
+import { ApiBody, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 
-@Controller('states')
+@ApiTags('Estados')
+@Controller('estados')
 export class StatesController {
     constructor(
         private readonly postStateService: PostStateService,
@@ -21,7 +22,7 @@ export class StatesController {
         private readonly postStatesService: PostStatesService,
     ) { }
 
-    @Post('one')
+    @Post('')
     @ApiOperation({
         summary: 'Cria um novo estado',
         description: 'Essa rota cria um novo estado no banco de dados do sistema.',
@@ -51,7 +52,11 @@ export class StatesController {
         summary: 'Cria novos estados',
         description: 'Essa rota cria um novo conjunto de estados no banco de dados do sistema.',
     })
-    @Post()
+    @Post('todos')
+    @ApiBody({
+        description: 'Array de estados a serem criados',
+        type: [CreateStateDto],
+    })
     @ApiResponse({
         status: 201,
         description: 'States created successfully.',
@@ -64,7 +69,7 @@ export class StatesController {
         return newStates;
     }
 
-    @Get('all')
+    @Get('todos')
     async getAllStates(): Promise<State[]> {
         const states = await this.getStatesService.execute();
 
@@ -83,7 +88,7 @@ export class StatesController {
         await this.deleteStateService.execute(id);
     }
 
-    @Delete('all')
+    @Delete('todos')
     async deleteAllStates(): Promise<void> {
         await this.deleteStatesService.execute();
     }

@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, InternalServerErrorException } from '@nestjs/common';
 import { StatesRepository } from '../../repositories/implementations/states';
 import { State } from '../../entities/state.entity';
 
@@ -12,7 +12,7 @@ export class GetStatesService {
         const states = await this.statesRepository.findAll();
 
         if (!states) {
-            throw new Error('States not found');
+            throw new InternalServerErrorException('Erro ao buscar estados');
         }
 
         return states;

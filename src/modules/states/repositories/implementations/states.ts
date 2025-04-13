@@ -34,7 +34,7 @@ export class StatesRepository implements IStatesRepository {
 	}
 
 	findByIbgeCode(ibge_code: string): Promise<State | null> {
-		const city = this.stateRepository.findOne({
+		const state = this.stateRepository.findOne({
 			select: {
 				id: true,
 				ibgeCode: true,
@@ -45,7 +45,7 @@ export class StatesRepository implements IStatesRepository {
 			},
 		});
 
-		return city;
+		return state;
 	}
 
 	findByUf(uf: string): Promise<State | null> {

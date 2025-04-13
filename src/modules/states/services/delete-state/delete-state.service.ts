@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { StatesRepository } from '../../repositories/implementations/states';
 
 @Injectable()
@@ -11,7 +11,7 @@ export class DeleteStateService {
         const state = await this.statesRepository.findById(Number(id));
 
         if (!state) {
-            throw new Error('State not found');
+            throw new NotFoundException('Estado não encontrado');
         }
 
         return this.statesRepository.delete(id);

@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable } from '@nestjs/common';
 import { State } from '../../entities/state.entity';
 import { StatesRepository } from '../../repositories/implementations/states';
 import { CreateStateDto } from '../../dtos/create-states/create-state.dto';
@@ -16,7 +16,7 @@ export class PostStateService {
         });
 
         if (!state) {
-            throw new Error('State not created');
+            throw new BadRequestException('Erro ao criar estado');  
         }
 
         return state;
