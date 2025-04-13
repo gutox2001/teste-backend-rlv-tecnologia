@@ -1,0 +1,110 @@
+[
+  {
+    "ibge_code": "12",
+    "uf": "AC"
+  },
+  {
+    "ibge_code": "27",
+    "uf": "AL"
+  },
+  {
+    "ibge_code": "16",
+    "uf": "AP"
+  },
+  {
+    "ibge_code": "13",
+    "uf": "AM"
+  },
+  {
+    "ibge_code": "29",
+    "uf": "BA"
+  },
+  {
+    "ibge_code": "23",
+    "uf": "CE"
+  },
+  {
+    "ibge_code": "53",
+    "uf": "DF"
+  },
+  {
+    "ibge_code": "32",
+    "uf": "ES"
+  },
+  {
+    "ibge_code": "52",
+    "uf": "GO"
+  },
+  {
+    "ibge_code": "21",
+    "uf": "MA"
+  },
+  {
+    "ibge_code": "51",
+    "uf": "MT"
+  },
+  {
+    "ibge_code": "50",
+    "uf": "MS"
+  },
+  {
+    "ibge_code": "31",
+    "uf": "MG"
+  },
+  {
+    "ibge_code": "15",
+    "uf": "PA"
+  },
+  {
+    "ibge_code": "25",
+    "uf": "PB"
+  },
+  {
+    "ibge_code": "41",
+    "uf": "PR"
+  },
+  {
+    "ibge_code": "26",
+    "uf": "PE"
+  },
+  {
+    "ibge_code": "22",
+    "uf": "PI"
+  },
+  {
+    "ibge_code": "33",
+    "uf": "RJ"
+  },
+  {
+    "ibge_code": "24",
+    "uf": "RN"
+  },
+  {
+    "ibge_code": "43",
+    "uf": "RS"
+  },
+  {
+    "ibge_code": "11",
+    "uf": "RO"
+  },
+  {
+    "ibge_code": "14",
+    "uf": "RR"
+  },
+  {
+    "ibge_code": "42",
+    "uf": "SC"
+  },
+  {
+    "ibge_code": "35",
+    "uf": "SP"
+  },
+  {
+    "ibge_code": "28",
+    "uf": "SE"
+  },
+  {
+    "ibge_code": "17",
+    "uf": "TO"
+  }
+]

@@ -33,6 +33,56 @@ $ npm install
 
 ## Compile and run the project
 
+### 🚀 Executando o banco de dados PostgreSQL com Docker
+Este projeto utiliza o PostgreSQL 15 executado via Docker.
+
+🐳 1. Build da imagem Docker
+No diretório onde está seu Dockerfile, execute o comando abaixo para construir a imagem:
+
+```bash
+docker build -t meu-postgres .
+```
+
+### ▶️ 2. Rodando o container
+Após o build, execute o container com:
+
+```bash
+docker run -d --name meu-postgres-container -p 5432:5432 meu-postgres
+```
+
+Esse comando:
+
+Cria um container chamado meu-postgres-container
+
+Mapeia a porta 5432 do container para a porta 5432 do host
+
+Executa a imagem meu-postgres
+
+⚠️ Certifique-se de que a porta 5432 esteja livre no seu sistema.
+
+### 🧪 3. Acessando o banco via terminal
+Com o PostgreSQL instalado na máquina (client psql), use o comando abaixo:
+
+```bash
+psql -h localhost -U postgres -d teste_rlv_tecnologia
+```
+- Host: localhost
+- Usuário: postgres
+- Senha: Será solicitada ao conectar (ex: 1234)
+- Banco: teste_rlv_tecnologia
+
+Se a conexão for bem-sucedida, você verá:
+
+```bash
+psql (versão do client), server 15.x (Debian)
+Type "help" for help.
+teste_rlv_tecnologia=#
+```
+
+Digite \q para sair do psql.
+
+### Executando o projeto NestJS
+
 ```bash
 # development
 $ npm run start
@@ -45,6 +95,21 @@ $ npm run start:prod
 ```
 
 ## Run tests
+Para realizar os testes previstos na especificação da tarefa é necessário ter o k6 instalado!
+```bash
+$ sudo apt update
+$ sudo apt install gnupg ca-certificates
+$ curl -fsSL https://dl.k6.io/key.gpg | sudo gpg --dearmor -o /usr/share/keyrings/k6-archive-keyring.gpg
+$ echo "deb [signed-by=/usr/share/keyrings/k6-archive-keyring.gpg] https://dl.k6.io/deb stable main" | sudo tee /etc/apt/sources.list.d/k6.list
+$ sudo apt update
+$ sudo apt install k6
+
+```
+### Executando os testes
+```bash
+$ k6 run -e BASE_APP_URL='http://localhost:3000/api/v1' tests-open.js
+```
+
 
 ```bash
 # unit tests
