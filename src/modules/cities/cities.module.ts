@@ -16,11 +16,7 @@ import { HolidaysModule } from '../holidays/holidays.module';
 import { City } from './entities/city.entity';
 
 @Module({
-	imports: [
-		DatabaseModule,
-		forwardRef(() => HolidaysModule),
-
-	],
+	imports: [DatabaseModule, forwardRef(() => HolidaysModule)],
 	providers: [
 		...cityProviders,
 		CitiesRepository,
@@ -31,11 +27,7 @@ import { City } from './entities/city.entity';
 		GetCityService,
 		GetCitiesService,
 	],
-	controllers: [
-		CitiesController
-	],
-	exports: [
-		CitiesRepository
-	],
+	controllers: [CitiesController],
+	exports: [CitiesRepository],
 })
-export class CitiesModule { }
+export class CitiesModule {}

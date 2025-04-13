@@ -1,80 +1,105 @@
+import { BadRequestException } from '@nestjs/common';
 import { IDateProvider } from './date-provider.interface';
 
 export class DateProvider implements IDateProvider {
 	constructor(
-		// Regex for full date in format YYYY-MM-DD
 		private readonly fullDateRegex: RegExp = /^\d{4}-\d{2}-\d{2}$/,
-		// Regex for month and day in format MM-DD
 		private readonly monthDayRegex: RegExp = /^\d{2}-\d{2}$/,
 	) {}
 
-	// Obtém a data atual no formato YYYY-MM-DD
+	// Retorna a data atual no formato YYYY-MM-DD
 	dateNow(): string {
 		const now = new Date();
 		return now.toISOString().split('T')[0];
 	}
 
-	// Verifica qual o formato da data
-	testRegex(date: string): string {
-		if (this.fullDateRegex.test(date)) {
-			return 'Full';
-		} else if (this.monthDayRegex.test(date)) {
-			return 'Short';
-		} else {
-			return 'Invalid';
-		}
+	// Determina o formato da data (Full: YYYY-MM-DD, Short: MM-DD)
+	testRegex(date: string): 'Full' | 'Short' {
+		if (this.fullDateRegex.test(date)) return 'Full';
+		if (this.monthDayRegex.test(date)) return 'Short';
+
+		throw new BadRequestException('Formato de data inválido. Use YYYY-MM-DD ou MM-DD');
 	}
 
+	// Verifica se a data informada é válida
 	isDateValid(date: string): boolean {
-		const testRegexResult = this.testRegex(date);
-		let year;
-		let month;
-		let day;
+		const format = this.testRegex(date);
 
-		switch (testRegexResult) {
-			case 'Full':
-				year = date.split('-')[0];
-				month = date.split('-')[1];
-				day = date.split('-')[2];
+		if (format === 'Full') {
+			const [yearStr, monthStr, dayStr] = date.split('-');
 
-				return this.isYearValid(year) && this.isMonthValid(month) && this.isDayValid(month, day);
-			case 'Short':
-				month = date.split('-')[0];
-				day = date.split('-')[1];
+			if (!this.isYearValid(yearStr)) throw new BadRequestException(`Ano inválido: ${yearStr}`);
 
-				return this.isMonthValid(day) && this.isDayValid(month, day);
+			if (!this.isMonthValid(monthStr)) throw new BadRequestException(`Mês inválido: ${monthStr}`);
 
-			default:
-				return false;
+			if (!this.isDayValid(monthStr, dayStr, parseInt(yearStr, 10))) {
+				throw new BadRequestException(`Dia inválido: ${dayStr} para o mês ${monthStr}`);
+			}
+			return true;
 		}
+
+		if (format === 'Short') {
+			const [monthStr, dayStr] = date.split('-');
+
+			if (!this.isMonthValid(monthStr)) throw new BadRequestException(`Mês inválido: ${monthStr}`);
+
+			if (!this.isDayValid(monthStr, dayStr, 2024)) {
+				throw new BadRequestException(`Dia inválido: ${dayStr} para o mês ${monthStr}`);
+			}
+			return true;
+		}
+
+		return false;
 	}
 
+	// Diferença em dias entre duas datas no formato YYYY-MM-DD
 	differenceInDays(startDate: string, endDate: string): number {
 		const start = new Date(startDate);
 		const end = new Date(endDate);
+
+		if (isNaN(start.getTime()) || isNaN(end.getTime())) {
+			throw new BadRequestException('Datas inválidas para cálculo');
+		}
+
 		const diffTime = Math.abs(end.getTime() - start.getTime());
 		return Math.ceil(diffTime / (1000 * 60 * 60 * 24));
 	}
 
 	isMonthValid(month: string): boolean {
-		if (month.length !== 2) {
-			return false;
-		}
-
-		return parseInt(month, 10) > 0 && parseInt(month, 10) <= 12;
+		const m = parseInt(month, 10);
+		return month.length === 2 && m >= 1 && m <= 12;
 	}
 
 	isYearValid(year: string): boolean {
-		if (year.length !== 4) {
-			return false;
-		}
-
-		return true;
+		return year.length === 4 && !isNaN(parseInt(year, 10));
 	}
 
-	isDayValid(month: string, day: string): boolean {
-		const daysInMonth = new Date(2024, parseInt(month, 10), 0).getDate(); // Using a fixed year for calculation
+	isDayValid(month: string, day: string, year: number): boolean {
+		const m = parseInt(month, 10);
+		const d = parseInt(day, 10);
 
-		return parseInt(day, 10) > 0 && parseInt(day, 10) <= daysInMonth;
+		if (isNaN(m) || isNaN(d)) return false;
+
+		// Usa 0 para o dia seguinte ao último do mês
+		const daysInMonth = new Date(year, m, 0).getDate();
+		return day.length === 2 && d >= 1 && d <= daysInMonth;
+	}
+
+	getMonthAndDay(date: string): string {
+		const format = this.testRegex(date);
+		if (format === 'Full') {
+			return date.slice(5);
+		} else {
+			return date;
+		}
+	}
+
+	getYear(date: string): string {
+		const format = this.testRegex(date);
+		if (format === 'Full') {
+			return date.slice(0, 4);
+		} else {
+			return '2024'; // Retorna um ano padrão para datas curtas
+		}
 	}
 }

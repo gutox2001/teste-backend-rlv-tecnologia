@@ -12,6 +12,10 @@ async function bootstrap() {
 	// Configurações para permitir requisições com arquivos grandes
 	app.use(json({ limit: '10mb' }));
 	app.use(urlencoded({ limit: '10mb', extended: true }));
+	app.setGlobalPrefix('api/v1');
+	app.enableCors({
+		origin: '*',
+	});
 
 	const swaggerConfig = new DocumentBuilder()
 		.setTitle('Teste Técnico RLV Tecnologia - Aroldo Augusto')
@@ -25,7 +29,6 @@ async function bootstrap() {
 
 	const configService = app.get(EnvService);
 	const port = configService.get('PORT_NEST_LOCALHOST');
-
 
 	await app.listen(port);
 }

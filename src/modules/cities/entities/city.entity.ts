@@ -12,6 +12,6 @@ export class City {
 	@Column({ length: 7, nullable: false, unique: true })
 	ibgeCode: string;
 
-	@OneToMany(() => Holiday, (holiday) => holiday.city)
+	@OneToMany(() => Holiday, holiday => holiday.city)
 	holidays: Holiday[];
 }

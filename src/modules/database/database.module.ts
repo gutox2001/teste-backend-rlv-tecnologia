@@ -4,11 +4,7 @@ import { cityProviders, databaseProviders, stateProviders } from './database.pro
 @Module({
 	imports: [],
 	controllers: [],
-	providers: [
-		...databaseProviders,
-		...cityProviders, 
-		...stateProviders,
-	],
+	providers: [...databaseProviders, ...cityProviders, ...stateProviders],
 	exports: [...databaseProviders, ...cityProviders, ...stateProviders],
 })
 export class DatabaseModule {}

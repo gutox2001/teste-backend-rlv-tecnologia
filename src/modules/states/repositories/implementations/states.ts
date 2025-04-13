@@ -12,7 +12,7 @@ export class StatesRepository implements IStatesRepository {
 	constructor(
 		@Inject(STATE_REPOSITORY)
 		private stateRepository: Repository<State>,
-	) { }
+	) {}
 
 	async findAll(): Promise<State[]> {
 		return this.stateRepository.find();

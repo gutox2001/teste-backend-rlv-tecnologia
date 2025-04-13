@@ -18,26 +18,20 @@ import { DateProvider } from 'src/common/providers/date-provider/date-provider';
 import { GetHolidaysService } from './services/get-holidays/get-holidays.service';
 
 @Module({
-    imports: [
-        DatabaseModule,
-        forwardRef(() => CitiesModule),
-        forwardRef(() => StatesModule),
-    ],
-    providers: [
-        ...holidayProviders,
-        HolidaysRepository,
-        CitiesRepository,
-        StatesRepository,
-        PutHolidayService,
-        DeleteHolidayService,
-        GetHolidayService,
-        PostNacionalHolidaysService,
-        DateProvider,
-        GetHolidaysService
-    ],
-    controllers: [
-        HolidayController
-    ],
-    exports: [],
+	imports: [DatabaseModule, forwardRef(() => CitiesModule), forwardRef(() => StatesModule)],
+	providers: [
+		...holidayProviders,
+		HolidaysRepository,
+		CitiesRepository,
+		StatesRepository,
+		PutHolidayService,
+		DeleteHolidayService,
+		GetHolidayService,
+		PostNacionalHolidaysService,
+		DateProvider,
+		GetHolidaysService,
+	],
+	controllers: [HolidayController],
+	exports: [],
 })
-export class HolidaysModule { }
+export class HolidaysModule {}

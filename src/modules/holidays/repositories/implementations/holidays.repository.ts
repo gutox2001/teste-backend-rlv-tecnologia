@@ -12,7 +12,7 @@ export class HolidaysRepository implements IHolidaysRepository {
 	constructor(
 		@Inject(HOLIDAY_REPOSITORY)
 		private holidayRepository: Repository<Holiday>,
-	) { }
+	) {}
 
 	async findByDate(date: string): Promise<Holiday[]> {
 		const holiday = await this.holidayRepository.find({

@@ -6,37 +6,37 @@
     },
     {
         "name": "Tiradentes",
-        "date": "21-04",
+        "date": "04-21",
         "type": "NACIONAL"
     },
     {
         "name": "Dia do Trabalhador",
-        "date": "01-05",
+        "date": "05-01",
         "type": "NACIONAL"
     },
     {
         "name": "Independência",
-        "date": "07-09",
+        "date": "09-07",
         "type": "NACIONAL"
     },
     {
         "name": "Nossa Senhora Aparecida",
-        "date": "12-10",
+        "date": "10-12",
         "type": "NACIONAL"
     },
     {
         "name": "Finados",
-        "date": "02-11",
+        "date": "11-02",
         "type": "NACIONAL"
     },
     {
         "name": "Proclamação da República",
-        "date": "15-11",
+        "date": "11-15",
         "type": "NACIONAL"
     },
     {
         "name": "Natal",
-        "date": "25-12",
+        "date": "12-25",
         "type": "NACIONAL"
     }
 ]

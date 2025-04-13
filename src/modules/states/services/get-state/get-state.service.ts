@@ -4,37 +4,35 @@ import { State } from '../../entities/state.entity';
 
 @Injectable()
 export class GetStateService {
-    constructor(
-        private readonly statesRepository: StatesRepository,
-    ) { }
+	constructor(private readonly statesRepository: StatesRepository) {}
 
-    async execute(id: number): Promise<State | null> {
-        const state = await this.statesRepository.findById(Number(id));
+	async execute(id: number): Promise<State | null> {
+		const state = await this.statesRepository.findById(Number(id));
 
-        if (!state) {
-            throw new NotFoundException('Estado não encontrado');
-        }
+		if (!state) {
+			throw new NotFoundException('Estado não encontrado');
+		}
 
-        return state;
-    }
+		return state;
+	}
 
-    async executeByIbgeCode(ibge_code: string): Promise<State | null> {
-        const state = await this.statesRepository.findByIbgeCode(ibge_code);
+	async executeByIbgeCode(ibge_code: string): Promise<State | null> {
+		const state = await this.statesRepository.findByIbgeCode(ibge_code);
 
-        if (!state) {
-            throw new NotFoundException('Estado não encontrado');
-        }
+		if (!state) {
+			throw new NotFoundException('Estado não encontrado');
+		}
 
-        return state;
-    }
+		return state;
+	}
 
-    async executeByUf(uf: string): Promise<State | null> {
-        const state = await this.statesRepository.findByUf(uf);
+	async executeByUf(uf: string): Promise<State | null> {
+		const state = await this.statesRepository.findByUf(uf);
 
-        if (!state) {
-            throw new NotFoundException('Estado não encontrado');
-        }
+		if (!state) {
+			throw new NotFoundException('Estado não encontrado');
+		}
 
-        return state;
-    }
+		return state;
+	}
 }

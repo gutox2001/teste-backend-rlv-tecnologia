@@ -24,9 +24,7 @@ import { HolidaysModule } from './modules/holidays/holidays.module';
 		StatesModule,
 		HolidaysModule,
 	],
-	controllers: [
-		AppController
-	],
+	controllers: [AppController],
 	providers: [AppService],
 })
-export class AppModule { }
+export class AppModule {}

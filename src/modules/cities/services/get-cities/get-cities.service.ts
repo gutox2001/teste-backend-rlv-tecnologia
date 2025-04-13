@@ -4,13 +4,11 @@ import { City } from '../../entities/city.entity';
 
 @Injectable()
 export class GetCitiesService {
-    constructor(
-        private readonly citiesRepository: CitiesRepository,
-    ) { }
+	constructor(private readonly citiesRepository: CitiesRepository) {}
 
-    async execute(): Promise<City[]> {
-        const cities = await this.citiesRepository.findAll();
-        
-        return cities;
-    }
+	async execute(): Promise<City[]> {
+		const cities = await this.citiesRepository.findAll();
+
+		return cities;
+	}
 }

@@ -1,40 +1,49 @@
-import { Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
 import { HolidaysRepository } from '../../repositories/implementations/holidays.repository';
-import { Holiday } from '../../entities/holiday.entity';
+import { DateProvider } from 'src/common/providers/date-provider/date-provider';
 
 @Injectable()
 export class GetHolidayService {
-    constructor(
-        private readonly holidaysRepository: HolidaysRepository,
-    ) { }
+	constructor(
+		private readonly holidaysRepository: HolidaysRepository,
+		private readonly dateProvider: DateProvider,
+	) {}
 
-    // REQUISIÇÃO SERÁ FEITA NO FORMATO 'feriados/4305439/2020-05-01'
-    async execute(ibge_code: string, date: string): Promise<string> {
-        const holidaysByDate = await this.holidaysRepository.findByDate(date);
+	// REQUISIÇÃO SERÁ FEITA NO FORMATO 'feriados/4305439/2020-05-01'
+	async execute(ibge_code: string, date: string): Promise<string> {
+		// Verifica se a data é válida
+		if (!this.dateProvider.isDateValid(date)) {
+			throw new BadRequestException('Formato de data inválido');
+		}
 
-        if (holidaysByDate.length === 0) {
-            throw new Error('No holidays found for this date');
-        }
+		// Procura entre os feriados nacionais
+		const holidaysByType = await this.holidaysRepository.findByType('NACIONAL');
 
-        if (holidaysByDate[0].type === 'NACIONAL') {
-            return holidaysByDate[0].name;
-        }
+		if (holidaysByType.length === 0) {
+			throw new NotFoundException('Nenhum feriado nacional encontrado');
+		}
 
-        const holiday = holidaysByDate.find(holiday => holiday.city.ibgeCode === ibge_code);
-        if (!holiday) {
-            const stateHoliday = holidaysByDate.find(holiday => holiday.state.ibgeCode === ibge_code);
+        const resumedDate = this.dateProvider.getMonthAndDay(date);
+		// Filtra os feriados nacionais pela data
+		const nacionalHolidayByDate = holidaysByType.find(holiday => holiday.date === resumedDate);
+		if (nacionalHolidayByDate) return nacionalHolidayByDate.name;
+		else {
+			// Procura entre os feriados estaduais e municipais
+			const holidaysByDate = await this.holidaysRepository.findByDate(date);
 
-            if (!stateHoliday) {
-                throw new Error('Holiday not found');
-            }
+			// Verifica entre os feriados municipais
+			const cityHoliday = holidaysByDate.find(holiday => holiday.city.ibgeCode === ibge_code);
+			if (!cityHoliday) {
+				// Verifica entre os feriados estaduais
+				const stateHoliday = holidaysByDate.find(holiday => holiday.state.ibgeCode === ibge_code);
 
-            return stateHoliday.name;
-        }
+				if (!stateHoliday) {
+					throw new NotFoundException('Nenhum feriado encontrado');
+				}
+				return stateHoliday.name;
+			}
 
-        if (!holiday) {
-            throw new Error('Holiday not found');
-        }
-
-        return holiday.name;
-    }
+			return cityHoliday.name;
+		}
+	}
 }

@@ -16,25 +16,18 @@ import { GetStateService } from './services/get-state/get-state.service';
 import { PostStatesService } from './services/post-states/post-states.service';
 
 @Module({
-    imports: [
-        DatabaseModule, 
-        forwardRef(() => HolidaysModule),
-    ],
-    providers: [
-        ...stateProviders,
-        StatesRepository,
-        PostStateService,
-        DeleteStateService,
-        DeleteStatesService,
-        GetStatesService,
-        GetStateService,
-        PostStatesService,
-    ],
-    controllers: [
-        StatesController
-    ],
-    exports: [
-        StatesRepository
-    ]
+	imports: [DatabaseModule, forwardRef(() => HolidaysModule)],
+	providers: [
+		...stateProviders,
+		StatesRepository,
+		PostStateService,
+		DeleteStateService,
+		DeleteStatesService,
+		GetStatesService,
+		GetStateService,
+		PostStatesService,
+	],
+	controllers: [StatesController],
+	exports: [StatesRepository],
 })
-export class StatesModule { }
+export class StatesModule {}

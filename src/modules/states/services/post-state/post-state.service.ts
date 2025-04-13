@@ -5,20 +5,18 @@ import { CreateStateDto } from '../../dtos/create-states/create-state.dto';
 
 @Injectable()
 export class PostStateService {
-    constructor(
-        private readonly statesRepository: StatesRepository,
-    ) { }
+	constructor(private readonly statesRepository: StatesRepository) {}
 
-    async execute(data: CreateStateDto): Promise<State> {
-        const state = await this.statesRepository.create({
-            ibgeCode: data.ibge_code,
-            uf: data.uf,
-        });
+	async execute(data: CreateStateDto): Promise<State> {
+		const state = await this.statesRepository.create({
+			ibgeCode: data.ibge_code,
+			uf: data.uf,
+		});
 
-        if (!state) {
-            throw new BadRequestException('Erro ao criar estado');  
-        }
+		if (!state) {
+			throw new BadRequestException('Erro ao criar estado');
+		}
 
-        return state;
-    }
+		return state;
+	}
 }

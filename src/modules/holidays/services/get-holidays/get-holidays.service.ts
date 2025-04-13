@@ -4,11 +4,9 @@ import { Holiday } from '../../entities/holiday.entity';
 
 @Injectable()
 export class GetHolidaysService {
-    constructor(
-        private readonly holidaysRepository: HolidaysRepository,
-    ) {}
+	constructor(private readonly holidaysRepository: HolidaysRepository) {}
 
-    execute(): Promise<Holiday[]> {
-        return this.holidaysRepository.findAll();
-    }
+	execute(): Promise<Holiday[]> {
+		return this.holidaysRepository.findAll();
+	}
 }

@@ -11,12 +11,14 @@ export class PostCitiesService {
 		let createdCities: City[] = [];
 
 		for (const city of cities) {
-            createdCities.push(await this.cityRepository.create({
-				name: city.name,
-				ibgeCode: city.ibge_code,
-			}));
+			createdCities.push(
+				await this.cityRepository.create({
+					name: city.name,
+					ibgeCode: city.ibge_code,
+				}),
+			);
 		}
 
-        return createdCities;
+		return createdCities;
 	}
 }

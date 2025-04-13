@@ -2,17 +2,17 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { DeleteHolidayService } from './delete-holiday.service';
 
 describe('DeleteHolidayService', () => {
-  let service: DeleteHolidayService;
+	let service: DeleteHolidayService;
 
-  beforeEach(async () => {
-    const module: TestingModule = await Test.createTestingModule({
-      providers: [DeleteHolidayService],
-    }).compile();
+	beforeEach(async () => {
+		const module: TestingModule = await Test.createTestingModule({
+			providers: [DeleteHolidayService],
+		}).compile();
 
-    service = module.get<DeleteHolidayService>(DeleteHolidayService);
-  });
+		service = module.get<DeleteHolidayService>(DeleteHolidayService);
+	});
 
-  it('should be defined', () => {
-    expect(service).toBeDefined();
-  });
+	it('should be defined', () => {
+		expect(service).toBeDefined();
+	});
 });

@@ -95,6 +95,21 @@ $ npm run start:prod
 ```
 
 ## Run tests
+Para realizar os testes previstos na especificação da tarefa é necessário ter o k6 instalado!
+```bash
+$ sudo apt update
+$ sudo apt install gnupg ca-certificates
+$ curl -fsSL https://dl.k6.io/key.gpg | sudo gpg --dearmor -o /usr/share/keyrings/k6-archive-keyring.gpg
+$ echo "deb [signed-by=/usr/share/keyrings/k6-archive-keyring.gpg] https://dl.k6.io/deb stable main" | sudo tee /etc/apt/sources.list.d/k6.list
+$ sudo apt update
+$ sudo apt install k6
+
+```
+### Executando os testes
+```bash
+$ k6 run -e BASE_APP_URL='http://localhost:3000/api/v1' tests-open.js
+```
+
 
 ```bash
 # unit tests
