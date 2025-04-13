@@ -8,11 +8,13 @@ export class DateProvider implements IDateProvider {
 		private readonly monthDayRegex: RegExp = /^\d{2}-\d{2}$/,
 	) {}
 
+	// Obtém a data atual no formato YYYY-MM-DD
 	dateNow(): string {
 		const now = new Date();
 		return now.toISOString().split('T')[0];
 	}
 
+	// Verifica qual o formato da data
 	testRegex(date: string): string {
 		if (this.fullDateRegex.test(date)) {
 			return 'Full';
@@ -41,6 +43,7 @@ export class DateProvider implements IDateProvider {
 				day = date.split('-')[1];
 
 				return this.isMonthValid(day) && this.isDayValid(month, day);
+
 			default:
 				return false;
 		}

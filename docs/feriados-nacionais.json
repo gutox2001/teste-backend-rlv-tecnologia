@@ -1,0 +1,42 @@
+[
+    {
+        "name": "Ano Novo",
+        "date": "01-01",
+        "type": "NACIONAL"
+    },
+    {
+        "name": "Tiradentes",
+        "date": "21-04",
+        "type": "NACIONAL"
+    },
+    {
+        "name": "Dia do Trabalhador",
+        "date": "01-05",
+        "type": "NACIONAL"
+    },
+    {
+        "name": "Independência",
+        "date": "07-09",
+        "type": "NACIONAL"
+    },
+    {
+        "name": "Nossa Senhora Aparecida",
+        "date": "12-10",
+        "type": "NACIONAL"
+    },
+    {
+        "name": "Finados",
+        "date": "02-11",
+        "type": "NACIONAL"
+    },
+    {
+        "name": "Proclamação da República",
+        "date": "15-11",
+        "type": "NACIONAL"
+    },
+    {
+        "name": "Natal",
+        "date": "25-12",
+        "type": "NACIONAL"
+    }
+]

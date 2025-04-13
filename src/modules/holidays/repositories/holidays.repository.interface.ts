@@ -26,9 +26,9 @@ export interface IHolidaysRepository {
     /**
      * Find a holiday by date
      * @param {string} date - The date of the holiday to be found
-     * @returns {Promise<Holiday | null>} - The found holiday
+     * @returns {Promise<Holiday[]>} - The found holiday
      */
-    findByDate(date: string): Promise<Holiday | null>;
+    findByDate(date: string): Promise<Holiday[]>;
 
     /**
      * Find a holiday by state id

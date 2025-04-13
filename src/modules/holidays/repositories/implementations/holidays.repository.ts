@@ -14,8 +14,8 @@ export class HolidaysRepository implements IHolidaysRepository {
 		private holidayRepository: Repository<Holiday>,
 	) { }
 
-	async findByDate(date: string): Promise<Holiday | null> {
-		const holiday = await this.holidayRepository.findOne({
+	async findByDate(date: string): Promise<Holiday[]> {
+		const holiday = await this.holidayRepository.find({
 			select: {
 				id: true,
 				name: true,
@@ -27,6 +27,7 @@ export class HolidaysRepository implements IHolidaysRepository {
 			where: {
 				date: date,
 			},
+			relations: ['city', 'state'],
 		});
 
 		return holiday;
@@ -61,13 +62,16 @@ export class HolidaysRepository implements IHolidaysRepository {
 			where: {
 				type: type,
 			},
+			relations: ['city', 'state'],
 		});
 
 		return holidays;
 	}
 
 	async findAll(): Promise<Holiday[]> {
-		return this.holidayRepository.find();
+		return this.holidayRepository.find({
+			relations: ['city', 'state'],
+		});
 	}
 
 	findById(id: number): Promise<Holiday | null> {
@@ -83,13 +87,14 @@ export class HolidaysRepository implements IHolidaysRepository {
 			where: {
 				id: id,
 			},
+			relations: ['city', 'state'],
 		});
 
 		return holiday;
 	}
 
 	findByName(name: string): Promise<Holiday | null> {
-		const Holiday = this.holidayRepository.findOne({
+		const holiday = this.holidayRepository.findOne({
 			select: {
 				id: true,
 				name: true,
@@ -101,20 +106,28 @@ export class HolidaysRepository implements IHolidaysRepository {
 			where: {
 				name: name,
 			},
+			relations: ['city', 'state'],
 		});
 
-		return Holiday;
+		return holiday;
 	}
 
 	create(data: ICreateHoliday): Promise<Holiday> {
 		const newHoliday = this.holidayRepository.create(data);
+
+		if (data.cityId) {
+			newHoliday.city = { id: data.cityId } as any;
+		}
+		if (data.stateId) {
+			newHoliday.state = { id: data.stateId } as any;
+		}
 
 		return this.holidayRepository.save(newHoliday);
 	}
 
 	async update(id: number, updateHoliday: ICreateHoliday): Promise<Holiday> {
 		await this.holidayRepository.update(id, updateHoliday);
-		
+
 		const updatedHoliday = await this.holidayRepository.findOneBy({ id });
 
 		if (!updatedHoliday) {

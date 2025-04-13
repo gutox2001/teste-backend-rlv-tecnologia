@@ -8,13 +8,14 @@ import { DatabaseModule } from '../database/database.module';
 import { CitiesModule } from '../cities/cities.module';
 import { StatesModule } from '../states/states.module';
 
-import { Holiday } from './entities/holiday.entity';
-import { PutHolidayService } from './put-holiday/put-holiday.service';
-import { DeleteHolidayService } from './delete-holiday/delete-holiday.service';
-import { GetHolidayService } from './get-holiday/get-holiday.service';
 import { GetHolidayService } from './services/get-holiday/get-holiday.service';
 import { DeleteHolidayService } from './services/delete-holiday/delete-holiday.service';
 import { PutHolidayService } from './services/put-holiday/put-holiday.service';
+import { PostNacionalHolidaysService } from './services/post-nacional-holidays/post-nacional-holidays.service';
+import { CitiesRepository } from '../cities/repositories/implementations/cities.repository';
+import { StatesRepository } from '../states/repositories/implementations/states';
+import { DateProvider } from 'src/common/providers/date-provider/date-provider';
+import { GetHolidaysService } from './services/get-holidays/get-holidays.service';
 
 @Module({
     imports: [
@@ -25,14 +26,18 @@ import { PutHolidayService } from './services/put-holiday/put-holiday.service';
     providers: [
         ...holidayProviders,
         HolidaysRepository,
+        CitiesRepository,
+        StatesRepository,
         PutHolidayService,
         DeleteHolidayService,
         GetHolidayService,
+        PostNacionalHolidaysService,
+        DateProvider,
+        GetHolidaysService
     ],
     controllers: [
         HolidayController
     ],
-    exports: [
-    ],
+    exports: [],
 })
 export class HolidaysModule { }
