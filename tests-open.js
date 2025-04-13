@@ -7,7 +7,9 @@ export let options = {
 };
 
 const BASE_URL = __ENV.BASE_APP_URL || 'http://localhost:3000/api/v1';
-const HEADERS = {'Content-Type': 'application/json'};
+const HEADERS = {
+  'Content-Type': 'application/json',
+};
 
 export default () => {
   group('Dia do Trabalhador', function() {
@@ -39,8 +41,8 @@ export default () => {
       (r) => r.status === 403,
     });
   });
+  
   group('Consciência Negra RJ', function() {
-
     // Cadastro do feriado estadual
     const payload = JSON.stringify({
       name: "Consciência Negra",

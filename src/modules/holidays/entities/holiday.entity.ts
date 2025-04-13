@@ -17,8 +17,8 @@ export class Holiday {
 	date: string;
 
 	@ManyToOne(() => City, city => city.holidays, { nullable: true })
-	city: City;
+	city?: City;
 
 	@ManyToOne(() => State, state => state.holidays, { nullable: true })
-	state: State;
+	state?: State;
 }

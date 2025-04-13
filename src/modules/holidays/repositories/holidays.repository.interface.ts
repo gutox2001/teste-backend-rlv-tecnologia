@@ -57,7 +57,7 @@ export interface IHolidaysRepository {
 	 * @param {ICreateHoliday} updateHoliday - The holiday to be updated
 	 * @returns {Promise<Holiday>} - The updated holiday
 	 */
-	update(id: number, updateHoliday: ICreateHoliday): Promise<Holiday>;
+	update(id: number, updateHoliday: Holiday): Promise<Holiday>;
 
 	/**
 	 * Delete a holiday by id

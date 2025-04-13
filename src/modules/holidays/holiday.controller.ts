@@ -37,8 +37,12 @@ export class HolidayController {
 		summary: 'Obtém um feriado',
 		description: 'Obtém o feriado com base no código IBGE e na data',
 	})
-	async getHoliday(@Param('ibge_code') ibge_code: string, @Param('date') date: string): Promise<string> {
-		return this.getHolidayService.execute(ibge_code, date);
+	async getHoliday(@Param('ibge_code') ibge_code: string, @Param('date') date: string): Promise<{name: string}> {
+		const holiday: {name: string} = {
+			name: await this.getHolidayService.execute(ibge_code, date),
+		}
+
+		return holiday;
 	}
 
 	@Get('todos')
@@ -80,8 +84,8 @@ export class HolidayController {
 
 	@Put(':ibge_code/:date')
 	@ApiOperation({ summary: 'Atualiza ou cria feriado baseado no código IBGE e data' })
-	@ApiResponse({ status: 200, description: 'Feriado já existente atualizado com sucesso' })
-	@ApiResponse({ status: 201, description: 'Feriado criado com sucesso' })
+	@ApiResponse({ status: 200, description: 'Feriado criado com sucesso' })
+	@ApiResponse({ status: 201, description: 'Feriado já existente atualizado com sucesso' })
 	async updateHolidays(
 		@Param('ibge_code') ibge_code: string,
 		@Param('date') date: string,
@@ -92,7 +96,7 @@ export class HolidayController {
 		return result;
 	}
 
-	@Delete(':ibge_code/:name')
+	@Delete(':ibge_code/:date')
 	@ApiOperation({
 		summary: 'Apaga um feriado baseado no código IBGE e nome',
 		description: 'Apaga o feriado com base no código IBGE e no nome',
@@ -109,7 +113,7 @@ export class HolidayController {
 		status: 403,
 		description: 'Não é possível apagar um feriado nacional!',
 	})
-	async deleteHolidays(@Param('ibge_code') ibge_code: string, @Param('name') name: string): Promise<void> {
-		return this.deleteHolidayService.execute(ibge_code, name);
+	async deleteHolidays(@Param('ibge_code') ibge_code: string, @Param('date') date: string): Promise<void> {
+		return this.deleteHolidayService.execute(ibge_code, date);
 	}
 }

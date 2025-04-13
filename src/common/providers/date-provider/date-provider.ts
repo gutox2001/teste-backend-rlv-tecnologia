@@ -86,8 +86,12 @@ export class DateProvider implements IDateProvider {
 	}
 
 	getMonthAndDay(date: string): string {
+		// Entrada no formato YYYY-MM-DD ou MM-DD
+		// Saída no formato MM-DD
 		const format = this.testRegex(date);
+		
 		if (format === 'Full') {
+			// Retorna o mês e o dia no formato MM-DD
 			return date.slice(5);
 		} else {
 			return date;

@@ -125,7 +125,7 @@ export class HolidaysRepository implements IHolidaysRepository {
 		return this.holidayRepository.save(newHoliday);
 	}
 
-	async update(id: number, updateHoliday: ICreateHoliday): Promise<Holiday> {
+	async update(id: number, updateHoliday: Holiday): Promise<Holiday> {
 		await this.holidayRepository.update(id, updateHoliday);
 
 		const updatedHoliday = await this.holidayRepository.findOneBy({ id });

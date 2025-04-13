@@ -30,8 +30,10 @@ export class PutHolidayService {
 			throw new NotFoundException('Nenhum feriado nacional encontrado');
 		}
 
+		const resumedDate = this.dateProvider.getMonthAndDay(date);
+
 		// Verifica se o feriado é nacional
-		const nationalHoliday = holidaysByType.find(holiday => holiday.date === date);
+		const nationalHoliday = holidaysByType.find(holiday => holiday.date === resumedDate);
 		if (nationalHoliday) {
 			return nationalHoliday;
 		} else {
@@ -46,7 +48,7 @@ export class PutHolidayService {
 					// Verifica se o feriado já existe no estado
 					const stateHolidays = (await this.holidaysRepository.findByStateIbgeCode(ibge_code))
 					const stateHoliday = stateHolidays.find(
-						holiday => holiday.date === date,
+						holiday => holiday.date === resumedDate,
 					);
 
 					// Caso o feriado não exista é necessário criar um novo
@@ -54,7 +56,7 @@ export class PutHolidayService {
 						// Cria o novo feriado estadual,  relacionando-o com a tabela State
 						const newStateHoliday = this.holidaysRepository.create({
 							name,
-							date,
+							date: resumedDate,
 							type: 'ESTADUAL',
 							stateId: tempState.id,
 						});
@@ -65,14 +67,13 @@ export class PutHolidayService {
 						stateHoliday.name = name;
 
 						// Atualiza o nome do feriado estadual
-						await this.holidaysRepository.update(stateHoliday.id, {
+						return await this.holidaysRepository.update(stateHoliday.id, {
+							id: stateHoliday.id,
 							name: name,
-							date: stateHoliday.date,
+							date: resumedDate,
 							type: 'ESTADUAL',
-							stateId: stateHoliday.state.id,
+							state: tempState,
 						});
-
-						return stateHoliday;
 					}
 
 				// Em caso de feriado municipal:
@@ -82,7 +83,7 @@ export class PutHolidayService {
 
 					// Verifica se o feriado já existe na cidade
 					const cityHoliday = (await this.holidaysRepository.findByCityIbgeCode(ibge_code)).find(
-						holiday => holiday.date === date,
+						holiday => holiday.date === resumedDate,
 					);
 
 					// Caso o feriado não exista é necessário criar um novo
@@ -90,7 +91,7 @@ export class PutHolidayService {
 						// Cria o novo feriado municipal,  relacionando-o com a tabela City
 						const newCityHoliday = this.holidaysRepository.create({
 							name,
-							date,
+							date: resumedDate,
 							type: 'MUNICIPAL',
 							cityId: tempCity.id,
 						});
@@ -101,14 +102,13 @@ export class PutHolidayService {
 						cityHoliday.name = name;
 
 						// Atualiza o nome do feriado municipal
-						await this.holidaysRepository.update(cityHoliday.id, {
+						return await this.holidaysRepository.update(cityHoliday.id, {
+							id: cityHoliday.id,
 							name: name,
-							date: cityHoliday.date,
+							date: resumedDate,
 							type: 'MUNICIPAL',
-							cityId: cityHoliday.state.id,
+							city: tempCity,
 						});
-
-						return cityHoliday;
 					}
 
 				default:
